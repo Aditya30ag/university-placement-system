@@ -97,7 +97,7 @@ export const JobPipeline: React.FC<JobPipelineProps> = ({
             <div className="flex flex-col space-y-2">
               <div className="flex items-center space-x-2">
                 <StatusBadge status={job.status} />
-                <Badge variant={getJobTypeColor(job.jobType)} size="sm">
+                <Badge variant={getJobTypeColor(job.jobType) as any} size="sm">
                   {job.jobType.replace('_', ' ')}
                 </Badge>
               </div>

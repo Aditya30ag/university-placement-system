@@ -22,21 +22,21 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex">
       <Sidebar 
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         userRole={user?.role}
       />
       
-      <div className="lg:pl-64">
+      <div className="flex-1 flex flex-col lg:ml-0">
         <Header
           user={user}
           onMenuClick={() => setSidebarOpen(true)}
           onExport={onExport}
         />
         
-        <main className="px-4 lg:px-6 py-6">
+        <main className="flex-1 px-4 lg:px-6 py-6">
           {children}
         </main>
       </div>

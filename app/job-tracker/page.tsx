@@ -334,3 +334,4 @@ const JobTrackerPage: React.FC = () => {
 };
 
 export default JobTrackerPage;
+
