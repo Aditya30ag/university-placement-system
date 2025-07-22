@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Switch } from '@/components/ui/Switch';
 import { Slider } from '@/components/ui/Slider';
-import { Upload, Image } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import type { SystemSettings } from '@/types';
 
 interface SystemSettingsProps {
@@ -12,7 +12,7 @@ interface SystemSettingsProps {
   onSettingsChange: (settings: Partial<SystemSettings>) => void;
 }
 
-export const SystemSettings: React.FC<SystemSettingsProps> = ({
+export const SystemSettingsComponent: React.FC<SystemSettingsProps> = ({
   settings,
   onSettingsChange
 }) => {

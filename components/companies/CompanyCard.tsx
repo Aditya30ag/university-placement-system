@@ -93,10 +93,10 @@ export const CompanyCard: React.FC<CompanyCardProps> = ({
 
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-4">
-        <Badge variant={getTypeColor(company.type)} size="sm">
+        <Badge variant={getTypeColor(company.type) as any} size="sm">
           {company.type.replace('_', ' ')}
         </Badge>
-        <Badge variant={getTierColor(company.tier)} size="sm">
+        <Badge variant={getTierColor(company.tier) as any} size="sm">
           {company.tier.toUpperCase()}
         </Badge>
         <Badge variant={company.isActive ? 'success' : 'error'} size="sm">

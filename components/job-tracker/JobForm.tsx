@@ -61,8 +61,8 @@ export const JobForm: React.FC<JobFormProps> = ({
   });
 
   const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'requirements'
+        control,
+        name: 'requirements' as never
   });
 
   const watchedDepartments = watch('eligibilityDepartments');
@@ -70,7 +70,7 @@ export const JobForm: React.FC<JobFormProps> = ({
   const handleFormSubmit = (data: JobFormData) => {
     onSubmit({
       ...data,
-      deadline: new Date(data.deadline)
+      deadline: new Date(data.deadline) as any
     });
   };
 
@@ -284,3 +284,4 @@ export const JobForm: React.FC<JobFormProps> = ({
     </form>
   );
 };
+

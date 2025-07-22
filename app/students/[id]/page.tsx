@@ -1,13 +1,11 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import React from 'react';
+import Link from 'next/link';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { Badge } from '@/components/ui/Badge';
-import { Modal } from '@/components/ui/Modal';
 import {
   User,
   Mail,
@@ -23,7 +21,6 @@ import {
   Clock
 } from 'lucide-react';
 import { StudentTimeline } from '@/components/students/StudentTimeline';
-import { StudentForm } from '@/components/students/StudentForm';
 import { formatDate, formatCurrency } from '@/lib/utils';
 import type { Student, JobApplication } from '@/types';
 
@@ -70,65 +67,43 @@ const mockStudent: Student = {
   ]
 };
 
-const StudentDetailPage: React.FC = () => {
-  const params = useParams();
-  const studentId = params.id as string;
-  const [student, setStudent] = useState<Student | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showEditForm, setShowEditForm] = useState(false);
+// Mock student IDs for static generation
+const mockStudentIds = ['1', '2', '3', '4', '5'];
+
+// Generate static params for static export
+export async function generateStaticParams() {
+  // In a real application, you would fetch this from your API
+  // For now, we'll use mock data
+  return mockStudentIds.map((id) => ({
+    id: id,
+  }));
+}
+
+interface StudentDetailPageProps {
+  params: {
+    id: string
+  }
+}
+
+// Mock function to get student data - replace with actual API call
+async function getStudentData(studentId: string): Promise<Student | null> {
+  // Simulate API call delay
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  // For demo purposes, return the mock student for any ID
+  // In a real app, you would fetch from your database/API
+  return mockStudent;
+}
+
+const StudentDetailPage: React.FC<StudentDetailPageProps> = async ({ params }) => {
+  const studentId = params.id;
+  const student = await getStudentData(studentId);
 
   const user = {
     name: 'Dr. Rajesh Kumar',
     email: 'rajesh.kumar@university.edu',
     role: 'super_admin',
   };
-
-  useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setStudent(mockStudent);
-      setIsLoading(false);
-    }, 1000);
-  }, [studentId]);
-
-  const handleEditStudent = (studentData: any) => {
-    if (!student) return;
-    
-    const updatedStudent = {
-      ...student,
-      ...studentData,
-      lastUpdated: new Date(),
-      updatedBy: user.name
-    };
-    setStudent(updatedStudent);
-    setShowEditForm(false);
-  };
-
-  const handleDownloadResume = () => {
-    if (student?.resumeUrl) {
-      window.open(student.resumeUrl, '_blank');
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <MainLayout user={user}>
-        <div className="animate-pulse space-y-6">
-          <div className="h-8 bg-gray-200 rounded w-1/4"></div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              <div className="h-64 bg-gray-200 rounded"></div>
-              <div className="h-96 bg-gray-200 rounded"></div>
-            </div>
-            <div className="space-y-6">
-              <div className="h-32 bg-gray-200 rounded"></div>
-              <div className="h-48 bg-gray-200 rounded"></div>
-            </div>
-          </div>
-        </div>
-      </MainLayout>
-    );
-  }
 
   if (!student) {
     return (
@@ -174,19 +149,20 @@ const StudentDetailPage: React.FC = () => {
               {student.resumeUrl && (
                 <Button
                   variant="outline"
-                  onClick={handleDownloadResume}
+                  onClick={() => window.open(student.resumeUrl, '_blank')}
                   icon={Download}
                 >
                   Resume
                 </Button>
               )}
-              <Button
-                variant="primary"
-                onClick={() => setShowEditForm(true)}
-                icon={Edit}
-              >
-                Edit Profile
-              </Button>
+              <Link href={`/students/${student.id}/edit` as any}>
+                <Button
+                  variant="primary"
+                  icon={Edit}
+                >
+                  Edit Profile
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -362,20 +338,6 @@ const StudentDetailPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Edit Modal */}
-      <Modal
-        isOpen={showEditForm}
-        onClose={() => setShowEditForm(false)}
-        title="Edit Student Profile"
-        size="lg"
-      >
-        <StudentForm
-          student={student}
-          onSubmit={handleEditStudent}
-          onCancel={() => setShowEditForm(false)}
-        />
-      </Modal>
     </MainLayout>
   );
 };

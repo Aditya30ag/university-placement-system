@@ -15,7 +15,7 @@ import {
   Upload,
   Save
 } from 'lucide-react';
-import { SystemSettings } from '@/components/settings/SystemSettings';
+import { SystemSettingsComponent } from '@/components/settings/SystemSettings';
 import { UserManagement } from '@/components/settings/UserManagement';
 import { NotificationSettings } from '@/components/settings/NotificationSettings';
 import { SecuritySettings } from '@/components/settings/SecuritySettings';
@@ -133,7 +133,7 @@ const SettingsPage: React.FC = () => {
       label: 'System',
       icon: SettingsIcon,
       component: (
-        <SystemSettings
+        <SystemSettingsComponent
           settings={settings}
           onSettingsChange={handleSettingsChange}
         />

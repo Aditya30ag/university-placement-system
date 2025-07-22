@@ -22,7 +22,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
         <React.Fragment key={index}>
           <ChevronRight className="h-4 w-4" />
           {item.href ? (
-            <Link href={item.href} className="hover:text-gray-700">
+            <Link href={`${item.href}` as any} className="hover:text-gray-700">
               {item.label}
             </Link>
           ) : (

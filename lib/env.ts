@@ -11,7 +11,7 @@ interface EnvConfig {
 function getEnvVar(name: string, defaultValue?: string): string {
   const value = process.env[name] || defaultValue;
   
-  if (!value && requiredEnvVars.includes(name as any)) {
+  if (!value && requiredEnvVars.includes(name as never)) {
     throw new Error(`Missing required environment variable: ${name}`);
   }
   

@@ -8,6 +8,16 @@ interface CompanyDetailPageProps {
   }
 }
 
+// Generate static params for known company IDs
+export async function generateStaticParams() {
+  // These IDs are based on the mock data in the companies page
+  const companyIds = ['1', '2']
+  
+  return companyIds.map((id) => ({
+    id: id,
+  }))
+}
+
 export default function CompanyDetailPage({ params }: CompanyDetailPageProps) {
   return (
     <div className="container mx-auto px-4 py-8">

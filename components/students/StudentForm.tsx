@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Card } from '@/components/ui/Card';
 import { DEPARTMENTS, BATCH_YEARS } from '@/types';
-import type { Student, StudentFormData } from '@/types';
+import type { Student } from '@/types';
 
 const studentSchema = z.object({
   rollNumber: z.string()

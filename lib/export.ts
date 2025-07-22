@@ -16,7 +16,7 @@ interface ExportOptions {
 
 // PDF Export Utilities
 export class PDFExporter {
-  private doc: jsPDF;
+  public doc: jsPDF;
   
   constructor(orientation: 'portrait' | 'landscape' = 'portrait') {
     this.doc = new jsPDF(orientation, 'mm', 'a4');
@@ -34,13 +34,13 @@ export class PDFExporter {
 
     // Add title
     this.doc.setFontSize(18);
-    this.doc.setFont(undefined, 'bold');
+    this.doc.setFont('helvetica', 'bold');
     this.doc.text(title, APP_CONFIG.university.logo ? 60 : 20, 25);
 
     // Add subtitle if provided
     if (subtitle) {
       this.doc.setFontSize(12);
-      this.doc.setFont(undefined, 'normal');
+      this.doc.setFont('helvetica', 'normal');
       this.doc.text(subtitle, APP_CONFIG.university.logo ? 60 : 20, 32);
     }
 
@@ -324,12 +324,12 @@ export const exportComplianceReport = (
   // Add summary
   let currentY = 70;
   pdf.doc.setFontSize(14);
-  pdf.doc.setFont(undefined, 'bold');
+  pdf.doc.setFont('helvetica', 'bold');
   pdf.doc.text('Executive Summary', 20, currentY);
   
   currentY += 10;
   pdf.doc.setFontSize(11);
-  pdf.doc.setFont(undefined, 'normal');
+  pdf.doc.setFont('helvetica', 'normal');
   pdf.doc.text(`Total Students: ${totalStudents}`, 20, currentY);
   pdf.doc.text(`Students Placed: ${totalPlaced}`, 20, currentY + 7);
   pdf.doc.text(`Overall Placement Rate: ${overallPercentage}%`, 20, currentY + 14);
