@@ -74,9 +74,10 @@ const mockStudentIds = ['1', '2', '3', '4', '5'];
 export async function generateStaticParams() {
   // In a real application, you would fetch this from your API
   // For now, we'll use mock data
-  return mockStudentIds.map((id) => ({
-    id: id,
+  const params = mockStudentIds.map((id) => ({
+    id,
   }));
+  return params;
 }
 
 interface StudentDetailPageProps {
