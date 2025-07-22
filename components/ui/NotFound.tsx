@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import Link from 'next/link';
 import { FileX, Home, ArrowLeft } from 'lucide-react';
 import { Button } from './Button';
 
@@ -23,13 +26,14 @@ export const NotFound: React.FC<NotFoundProps> = ({
         <p className="text-gray-600 mb-6">{message}</p>
         
         <div className="space-y-3">
-          <Button
-            onClick={() => window.location.href = '/dashboard'}
-            icon={Home}
-            className="w-full"
-          >
-            Go to Dashboard
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              icon={Home}
+              className="w-full"
+            >
+              Go to Dashboard
+            </Button>
+          </Link>
           {showBackButton && (
             <Button
               onClick={() => window.history.back()}

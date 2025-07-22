@@ -1,6 +1,7 @@
 // components/ui/ErrorBoundary.tsx
 'use client';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Button } from './Button';
 
@@ -61,21 +62,7 @@ export class ErrorBoundary extends Component<Props, State> {
             )}
 
             <div className="space-y-3">
-              <Button
-                onClick={() => window.location.reload()}
-                icon={RefreshCw}
-                className="w-full"
-              >
-                Refresh Page
-              </Button>
-              <Button
-                onClick={() => window.location.href = '/dashboard'}
-                variant="outline"
-                icon={Home}
-                className="w-full"
-              >
-                Go to Dashboard
-              </Button>
+              <ErrorActionButtons />
             </div>
           </div>
         </div>
@@ -85,3 +72,36 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+// Separate component to use hooks
+const ErrorActionButtons: React.FC = () => {
+  const router = useRouter();
+
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
+  const handleGoToDashboard = () => {
+    router.push('/dashboard');
+  };
+
+  return (
+    <>
+      <Button
+        onClick={handleRefresh}
+        icon={RefreshCw}
+        className="w-full"
+      >
+        Refresh Page
+      </Button>
+      <Button
+        onClick={handleGoToDashboard}
+        variant="outline"
+        icon={Home}
+        className="w-full"
+      >
+        Go to Dashboard
+      </Button>
+    </>
+  );
+};

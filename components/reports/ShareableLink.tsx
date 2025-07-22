@@ -23,7 +23,7 @@ export const ShareableLink: React.FC<ShareableLinkProps> = ({
   const [isGenerating, setIsGenerating] = useState(false);
 
   const shareableUrl = report.shareableToken 
-    ? `${window.location.origin}/shared/reports/${report.shareableToken}`
+    ? `/shared/reports/${report.shareableToken}`
     : null;
 
   const handleCopyLink = async () => {
